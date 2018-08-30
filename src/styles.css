@@ -1,1 +1,209 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .active {
+    font-weight: bold;
+  }
+  
+  #recipes-banner {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .recipe-home-picture {
+    border-radius: 12%;
+    width: 100%;
+    min-height: 280px;
+    max-height: 280px
+  }
+  
+  #footer-normal {
+    padding-bottom: 40px;
+    margin-top: 100px;
+    color: #777;
+    text-align: center;
+    border-top: 1px solid #e5e5e5;
+  }
+  
+  .home-section-title, #new-recipe-title {
+    text-align: center;
+  }
+  
+  .like-counter {
+    width: 15%;
+  }
+  
+  .recipe-short-description {
+    text-align: justify;
+  }
+  
+  .home-recipe-container {
+    border-bottom: 1px solid rgb(230, 230, 230);
+    border-radius: 1px solid rgb(230, 230, 230);
+    border-left: 1px solid rgb(230, 230, 230);
+    border-radius: 0 0 6% 6%;
+  }
+  
+  .home-recipe-short-title {
+    margin-top: 1px;
+  }
+  
+  .navbar-nav { 
+    flex-direction: row;
+  }
+  
+  .navbar-nowrap-fix > div.container{
+    flex-wrap: nowrap;
+  }
+  
+  .register-container {
+    margin: 0 auto;
+  }
+  
+  .auth-container {
+    width: 50% !important;
+  }
+  
+  #registerTitle {
+    text-align: center;
+  }
+  
+  .validation-error{
+    color:red;
+    text-align: center;
+  }
+  
+  .center {
+    text-align: center;
+  }
+  
+  .recipe-info {
+    margin-top: 12px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    background-color: #f9f9f9;
+    -webkit-box-shadow: 0 1px 0 rgba(0,0,0,.15);
+    -moz-box-shadow: 0 1px 0 rgba(0,0,0,.15);
+    box-shadow: 0 1px 0 rgba(0,0,0,.15);
+  }
+  
+  .ingredients-list dl {
+    display: inline-block;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+  }
+  .ingredients-list dt {
+    width: 15%;
+    float: left;
+    margin: 0 0 8px;
+    padding: 0 10px;
+    font-size: 13px;
+    line-height: 37px;
+    background: #f9f9f9;
+    -webkit-box-shadow: 0 1px 0 rgba(0,0,0,.15);
+    -moz-box-shadow: 0 1px 0 rgba(0,0,0,.15);
+    box-shadow: 0 1px 0 rgba(0,0,0,.15);
+  }
+  .ingredients-list dd {
+    width: 85%;
+    float: left;
+    margin: 0 0 8px;
+    padding: 0 15px;
+    font-size: 13px;
+    line-height: 37px;
+    font-weight: 600;
+    background: #d9230F;
+    color: #f9f9f9;
+    -webkit-box-shadow: 0 1px 0 rgba(0,0,0,.15);
+    -moz-box-shadow: 0 1px 0 rgba(0,0,0,.15);
+    box-shadow: 0 1px 0 rgba(0,0,0,.15);
+  }
+  
+  .recipe-instructions ol {
+    counter-reset: li;
+    list-style: none;
+    padding: 0;
+    margin-bottom: 4em;
+    text-shadow: 0 1px 0 rgba(255,255,255,.5);
+  }
+  
+  .recipe-instructions ol ol {
+    margin: 0 0 0 2em;
+  }
+  .recipe-instructions li {
+    position: relative;
+    display: block;
+    padding: .4em .4em .4em .8em;
+    *padding: .4em;
+    margin: .5em 0 .5em 2.5em;
+    background: #f9f9f9;
+    color: #222;
+    text-decoration: none;
+    transition: all .3s ease-out;
+    -webkit-box-shadow: 0 1px 0 rgba(0,0,0,.15);
+    -moz-box-shadow: 0 1px 0 rgba(0,0,0,.15);
+    box-shadow: 0 1px 0 rgba(0,0,0,.15);
+  }
+  .recipe-instructions li:hover{
+    background: #f1f1f1;
+  }
+  .recipe-instructions li:before{
+    content: counter(li);
+    counter-increment: li;
+    position: absolute;
+    left: -2.5em;
+    top: 50%;
+    margin-top: -1em;
+    background: #d9230F;
+    height: 2em;
+    width: 2em;
+    line-height: 2em;
+    text-align: center;
+    font-weight: bold;
+    color: #f9f9f9;
+  }
+  .recipe-instructions li:after{
+    position: absolute;
+    content: '';
+    border: .5em solid transparent;
+    left: -1em;
+    top: 50%;
+    margin-top: -.5em;
+    transition: all .3s ease-out;
+  }
+  .recipe-instructions li:hover:after{
+    left: -.5em;
+    border-left-color: #d9230F;
+  }
+  
+  .secret-wrapper {
+    margin-top: 100px;
+    text-align: center;
+  }
+  
+  #master-secret-label {
+    font-size: 25px;
+  }
+  
+  .send-secret-btn {
+    margin-top: 15px;
+  }
+
+.justify {
+  text-align: justify;
+}
+
+#recipe-detail-title {
+  padding-left: 15px;
+}
+
+.help-block {
+  display: block;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  color: #737373;
+}

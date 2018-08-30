@@ -1,0 +1,19 @@
+<div class="container container-fluid">
+  <form (ngSubmit)="changeFilter()" [formGroup]="filterRecipiesForm">
+    <div class="form-group">
+      <label>Recipe name: </label>
+      <input type="text" formControlName="recipeFilter" class="form-control" placeholder="Enter recipe name">
+      <br/>
+      <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+  </form>
+  <div *ngIf="recipes$ | async | paginate: {
+      id: 'allFurniture',
+      itemsPerPage: pageSize,
+      currentPage: currentPage
+    }as recipes " class="row">
+    <recipe-short-details class="col-md-3" *ngFor="let recipe of recipes" [recipe]="recipe"></recipe-short-details>
+  </div>
+  <pagination-controls id="allFurniture" (pageChange)="pageChanged($event)" maxSize="20" directionLinks="true" autoHide="true"
+    previousLabel="Previous" nextLabel="Next" screenReaderPaginationLabel="Pagination" screenReaderPageaLabel="page" screenReaderCurrentLabel="You're on page"></pagination-controls>
+</div>

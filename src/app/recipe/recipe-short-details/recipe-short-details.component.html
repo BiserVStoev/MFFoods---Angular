@@ -1,0 +1,11 @@
+<div>
+  <a routerLink="/recipe/{{recipe._id}}">
+    <img src="{{recipe.picture}}" alt="recipe" class="recipe-home-picture">
+  </a>
+  <div>
+    <h3 class="home-recipe-short-title">{{recipe.title.length > 15 ? recipe.description.slice(0, 12) + '...' : recipe.title}}</h3>
+  </div>
+  <p class="recipe-short-description">{{recipe.description.length > 72 ? recipe.description.slice(0, 72) + '...' : recipe.description}}</p>
+  <p *ngIf="showStatus">{{recipe.isApproved ? 'Approved: YES' : 'Approved: NO'}}</p>
+  <p *ngIf="showStatus && userId && userId === recipe.publisher && !recipe.isApproved"><button (click)="deleteRecipe(recipe._id)" class="btn btn-danger">Delete</button></p>
+</div>

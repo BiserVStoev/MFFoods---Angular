@@ -1,11 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, AbstractControl, Validators, FormControl } from '@angular/forms';
-import { AuthService } from '../auth.service';
 import { mustMatchValidator } from '../../directives/must-match-directive';
 import { Subscription } from 'rxjs';
-import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
-import { map } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../core/state/app.state';
+import { RegisterUserAction } from '../../core/actions/user.actions';
+import { SignUpModel } from '../models/signup.model';
+
 const emailRegex: RegExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const usernameRegex: RegExp = /^[A-Z]{1}[A-Za-z0-9]+$/;
 const passwordRegex: RegExp = /^[A-Za-z0-9]+$/;
@@ -21,11 +22,7 @@ export class SignupComponent implements OnInit, OnDestroy {
   error: string;
   private subscriptions: Subscription[] = [];
   
-  constructor(
-    private authService: AuthService,
-    private router: Router, 
-    private toastr: ToastrService 
-  ) { }
+  constructor(private store: Store<AppState>) { }
 
   ngOnInit(): void {
     this.registerForm = new FormGroup({
@@ -59,13 +56,12 @@ export class SignupComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(s => s.unsubscribe);
   }
 
-  onSubmit(): void {
-    this.subscriptions.push(this.authService
-      .register(this.registerForm.value)
-      .subscribe(reg => {
-          this.toastr.success('Registered Successfuly', 'Success');
-          this.router.navigate(['/home']);
-      }));
+  register(): void {
+    if (this.registerForm.valid){
+      const { email, firstName, lastName, username, password} = this.registerForm.value;
+      const registerData = new SignUpModel(username, email, password, firstName, lastName);
+      this.store.dispatch(new RegisterUserAction(registerData));
+    }
   }
 
   get username(): AbstractControl {

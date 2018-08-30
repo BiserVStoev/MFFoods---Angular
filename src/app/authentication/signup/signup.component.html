@@ -3,7 +3,7 @@
   <div *ngIf="error" class="alert alert-danger">
     {{error}}
   </div>
-  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="registerForm" (ngSubmit)="register()">
     <div class="form-group">
       <label for="username">Username</label>
       <input type="text" class="form-control" id="username" formControlName="username" />

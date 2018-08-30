@@ -1,0 +1,127 @@
+<div class="container container-fluid">
+  <div className='center'>
+    <img src='assets/newRecipe.jpg' className='img-fluid' alt='new-recipe-banner' />
+  </div>
+  <h1 id='new-recipe-title'>Create a New Recipe</h1>
+  <form [formGroup]="createRecipeForm" (ngSubmit)="createRecipe()">
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input type="text" class="form-control" id="title" formControlName="title" placeholder="Title" />
+      <div *ngIf="title.invalid && (title.dirty || title.touched)" class="alert alert-danger">
+        <div *ngIf="title.errors.required">
+          Title is required.
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="picture">Picture</label>
+      <input type="url" class="form-control" id="picture" formControlName="picture" placeholder="Picture url" />
+      <div *ngIf="picture.invalid && (picture.dirty || picture.touched)" class="alert alert-danger">
+        <div *ngIf="picture.errors.required">
+          Picture is required.
+        </div>
+        <div *ngIf="picture.errors.pattern">
+          Picture must be a valid url.
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea class="form-control" id="description" formControlName="description" placeholder="Description"></textarea>
+      <div *ngIf="description.invalid && (description.dirty || description.touched)" class="alert alert-danger">
+        <div *ngIf="description.errors.required">
+          Description is required.
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="servings">Servings</label>
+      <input type="number" class="form-control" id="servings" formControlName="servings" placeholder="Sevings" />
+      <div *ngIf="servings.invalid && (servings.dirty || servings.touched)" class="alert alert-danger">
+        <div *ngIf="servings.errors.required">
+          Number of servings are required
+        </div>
+        <div *ngIf="servings.errors.min">
+          The amount of servings must be at least 1.
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="protein">Total amount of Protein</label>
+      <input type="number" class="form-control" id="protein" formControlName="protein" placeholder="Protein" />
+      <div *ngIf="protein.invalid && (protein.dirty || protein.touched)" class="alert alert-danger">
+        <div *ngIf="protein.errors.required">
+          The total amount of protein is requred.
+        </div>
+        <div *ngIf="protein.errors.min">
+          Protein cannot be a negative number.
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="fat">Total amount of Fat</label>
+      <input type="number" class="form-control" id="fat" formControlName="fat" placeholder="Fat" />
+      <div *ngIf="fat.invalid && (fat.dirty || fat.touched)" class="alert alert-danger">
+        <div *ngIf="fat.errors.required">
+          The total amount of fat is requred.
+        </div>
+        <div *ngIf="fat.errors.min">
+          Fat cannot be a negative number.
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="carbs">Total amount of Carbs</label>
+      <input type="number" class="form-control" id="carbs" formControlName="carbs" placeholder="Carbs" />
+      <div *ngIf="carbs.invalid && (carbs.dirty || carbs.touched)" class="alert alert-danger">
+        <div *ngIf="carbs.errors.required">
+          The total amount of carbs is requred.
+        </div>
+        <div *ngIf="carbs.errors.min">
+          Carbs cannot be a negative number.
+        </div>
+      </div>
+    </div>
+    <fieldset>
+      <legend>
+        Instructions: |
+        <i class="fas fa-plus" (click)="addInstruction()"></i>
+      </legend>
+      <div class="form-group" formArrayName="instructions" *ngFor="let instructionsControl of instructions.controls; let i = index">
+        <div class="input-group">
+          <input type="text" class="form-control" [formControlName]="i" placeholder="Instruction" />
+          <i *ngIf="i > 0" class="input-group-addon fas fa-trash-alt fa-2x" (click)="removeInstruction(i)"></i>
+        </div>
+        <div *ngIf="instructionsControl.invalid && (instructionsControl.dirty || instructionsControl.touched)" class="alert alert-danger">
+          <div *ngIf="instructionsControl.errors.required">
+            Instruction is required.
+          </div>
+        </div>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>
+        Ingredients: |
+        <i class="fas fa-plus" (click)="addIngredient()"></i>
+        <div>
+          <span class="center help-block">Please enter the ingredients in the format 'ingredient - quantity (quantity must be a number)'. For example:</span>
+          <span class="center help-block">country-style pork ribs - 10</span>
+          <span class="center help-block">tablespoons garlic powder - 2</span>
+          <span class="center help-block">(!Invalid entries will be skipped!)</span>
+        </div>
+      </legend>
+      <div class="form-group" formArrayName="ingredients" *ngFor="let ingredientsControl of ingredients.controls; let i = index">
+        <div class="input-group">
+          <input type="text" class="form-control" [formControlName]="i" placeholder="Ingredient" />
+          <i *ngIf="i > 0" class="input-group-addon fas fa-trash-alt fa-2x" (click)="removeIngredient(i)"></i>
+        </div>
+        <div *ngIf="ingredientsControl.invalid && (ingredientsControl.dirty || ingredientsControl.touched)" class="alert alert-danger">
+          <div *ngIf="ingredientsControl.errors.required">
+            Ingredient is required.
+          </div>
+        </div>
+      </div>
+    </fieldset>
+    <button type="submit" class="btn btn-success" [disabled]="createRecipeForm.invalid">Create Recipe</button>
+  </form>
+</div>

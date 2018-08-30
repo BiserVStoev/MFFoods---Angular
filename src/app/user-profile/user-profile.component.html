@@ -1,0 +1,18 @@
+<div class="container container-fluid">
+  <div class="jumbotron">
+    <p>{{authService.getUsername()}}'s Profile</p>
+    <p>Email: {{authService.getUsername()}}</p>
+    <p>Number of approved recipes: {{approvedRecipes}}</p>
+    <p>Number of not approved recipes yet: {{notApprovedRecipes}}</p>
+  </div>
+  <h2 style="text-align: center;">My recipes</h2>
+  <div *ngIf="recipes" class="row">
+      <recipe-short-details class="col-md-3" *ngFor="let recipe of recipes | paginate: {
+        id: 'allFurniture',
+        itemsPerPage: pageSize,
+        currentPage: currentPage
+      }" [userId]="authService.getUserId()" [showStatus]="true" [recipe]="recipe"></recipe-short-details>
+  </div>
+  <pagination-controls id="allFurniture" (pageChange)="pageChanged($event)" maxSize="4" directionLinks="true" autoHide="true"
+  previousLabel="Previous" nextLabel="Next" screenReaderPaginationLabel="Pagination" screenReaderPageaLabel="page" screenReaderCurrentLabel="You're on page"></pagination-controls>
+</div>

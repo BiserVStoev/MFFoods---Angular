@@ -1,20 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { AuthService } from '../core/services';
+import { Subscription, Observable } from 'rxjs';
+import { RecipeModel } from '../recipe/models/recipe.model';
+import { RecipeStoreService } from '../core/services/recipe-store.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
-  username : string;
+export class HomeComponent implements OnInit, OnDestroy {
+  private subscriptions: Subscription[] = [];
+  public mostRecentRecipes$: Observable<RecipeModel[]>;
 
-  constructor() { }
+  constructor(public authService: AuthService, private recipeStoreService: RecipeStoreService) { }
 
   ngOnInit() {
-    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    if (currentUser) {
-       this.username = JSON.parse(localStorage.getItem('currentUser')).username;
-    }
+    this.subscriptions.push(this.recipeStoreService.allRecipesAreLoaded().subscribe(areLoaded => {
+      if (areLoaded) {
+        this.mostRecentRecipes$ = this.recipeStoreService.getLatesRecipes();
+      } else {
+        if (this.authService.isAuthenticated()){
+          this.recipeStoreService.loadAllRecipes();
+        }
+      }
+    }));
   }
 
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(s => s.unsubscribe);
+  }
 }

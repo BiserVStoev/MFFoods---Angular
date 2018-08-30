@@ -4,24 +4,20 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor,
-  HttpResponse
+  HttpInterceptor
 } from '@angular/common/http';
-import { tap } from 'rxjs/operators';
-import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
-import { AuthService } from '../authentication/auth.service';
+import { AuthService } from '../core/services/auth.service';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
 
-  constructor(private toastr: ToastrService, private router: Router, private authService: AuthService) { }
+  constructor(private authService: AuthService) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (this.getAuthtoken() !== null) {
+    if (this.authService.getAuthtoken() !== null) {
       request = request.clone({
         setHeaders: {
-          'Authorization': `Kinvey ${this.getAuthtoken()}`,
+          'Authorization': `Kinvey ${this.authService.getAuthtoken()}`,
           'Content-Type': 'application/json'
         }
       });
@@ -34,23 +30,6 @@ export class TokenInterceptor implements HttpInterceptor {
       });
     }
 
-    return next.handle(request)
-      .pipe(tap((res: HttpEvent<any>) => {
-        console.log(res)
-        if (res instanceof HttpResponse && res.url.endsWith(`https://baas.kinvey.com/user/${this.authService.appKey}`) && res.statusText === 'Created') {
-          //this.saveToken(res.body);
-          
-        }
-      }))
-  }
-
-  private saveToken(data) {
-    localStorage.setItem('username', data['username']);
-    localStorage.setItem('authToken', data['_kmd']['authtoken']);
-    localStorage.setItem('userId', data['_id']);
-  }
-
-  private getAuthtoken(): string {
-    return localStorage.getItem('authToken');
+    return next.handle(request);
   }
 }

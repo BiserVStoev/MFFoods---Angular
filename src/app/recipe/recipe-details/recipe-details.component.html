@@ -1,0 +1,58 @@
+<div *ngIf="recipe$ | async as recipe" class="container container-fluid">
+  <div class="row">
+    <h2 id="recipe-detail-title">{{recipe.title}}</h2>
+  </div>
+  <div class="vertical-align row">
+    <div class="pull-left col-md-6">
+      <img style="width: 100%;" alt='cooked-recipe' src="{{recipe.picture}}" />
+    </div>
+    <div class="pull-right col-md-4">
+      <h3>Info</h3>
+      <div class="recipe-info row">
+        <div class="col-md-6">Servings</div>
+        <div class="col-md-4">{{recipe.servings}}</div>
+      </div>
+      <div class="recipe-info row">
+        <div class="col-md-6">Carbs</div>
+        <div class="col-md-4">{{recipe.carbs}}</div>
+      </div>
+      <div class="recipe-info row">
+        <div class="col-md-6">Protein</div>
+        <div class="col-md-4">{{recipe.protein}}</div>
+      </div>
+      <div class="recipe-info row">
+        <div class="col-md-6">Fat</div>
+        <div class="col-md-4">{{recipe.fat}}</div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 justify">
+      Description:
+    </div>
+    <div class="col-md-12 justify">{{recipe.description}}</div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div>
+        <h3>Ingredients</h3>
+        <dl class="ingredients-list">
+          <div *ngFor="let ingredient of recipe.ingredients">
+            <dt>{{ingredient.quantity}}</dt>
+            <dd>{{ingredient.name}}</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="recipe-instructions">
+        <h3>Instructions</h3>
+        <ol>
+          <li *ngFor="let instruction of recipe.instructions">{{instruction}}</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+
+import { Store } from '@ngrx/store';
+import { LoginUserAction } from '../../core/actions/user.actions';
+import { AppState } from '../../core/state/app.state';
+
+import { AuthService } from '../../core/services/auth.service';
+
 import { SignInModel } from '../models/signin.model';
-import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-signin',
@@ -10,7 +16,7 @@ import { AuthService } from '../auth.service';
 export class SigninComponent implements OnInit {
   model : SignInModel;
 
-  constructor(private authService : AuthService) {
+  constructor(private store: Store<AppState>) {
     this.model = new SignInModel("", "");
   }
 
@@ -18,9 +24,7 @@ export class SigninComponent implements OnInit {
   }
 
   signIn() {
-    this.authService
-      .login(this.model)
-      .subscribe();
+    this.store.dispatch(new LoginUserAction(this.model));
   }
 
 }

@@ -1,3 +1,12 @@
-<h1>
-  Hello {{username}}!
-</h1>
+<div class="container">
+  <div class="jumbotron">
+    <h1>Welcome to MF Foods!</h1>
+    <img id='recipes-banner' alt='recipes-banner' src='/assets/recipesBanner.jpg' />
+  </div>
+  <section *ngIf="authService.isAuthenticated()">
+      <h2 className='home-section-title'>Most Recently Added Foods</h2>
+      <div *ngIf="(mostRecentRecipes$ | async) as mostRecentRecipes" class="row">
+          <recipe-short-details *ngFor="let recipe of mostRecentRecipes" [recipe]="recipe" class="col-md-3"></recipe-short-details>
+      </div>
+  </section>
+</div>
