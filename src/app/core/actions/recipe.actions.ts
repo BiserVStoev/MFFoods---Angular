@@ -12,15 +12,21 @@ export const LOAD_ALL_RECIPES = '[Recipe] LOAD_ALL_RECIPES';
 export const LOAD_ALL_RECIPES_SUCCESS = '[Recipe] LOAD_ALL_RECIPES_SUCCESS';
 export const LOAD_ALL_RECIPES_ERROR = '[Recipe] LOAD_ALL_RECIPES_ERROR';
 export const CHANGE_ALL_RECIPES_FILTER = '[Recipe CHANGE_ALL_RECIPES_FILTER]'
-export const LOAD_OWN_RECIPES = '[RECIPE] LOAD_OWN_RECIPES';
-export const LOAD_OWN_RECIPES_SUCCESS = '[RECIPE] LOAD_OWN_RECIPES_SUCCESS';
-export const LOAD_OWN_RECIPES_ERROR = '[RECIPE] LOAD_OWN_RECIPES_ERROR';
-export const GET_INIT_USER_PROFILE = '[RECIPE] GET_INIT_USER_PROFILE';
-export const GET_INIT_USER_PROFILE_SUCCESS = '[RECIPE] GET_INIT_USER_PROFILE_SUCCESS';
-export const GET_INIT_USER_PROFILE_ERROR = '[RECIPE] GET_INIT_USER_PROFILE_ERROR';
-export const DELETE_RECIPE = '[RECIPE] DELETE_RECIPE';
-export const DELETE_RECIPE_SUCCESS = '[RECIPE] DELETE_RECIPE_SUCCESS';
-export const DELETE_RECIPE_ERROR = '[RECIPE] DELETE_RECIPE_ERROR';
+export const LOAD_OWN_RECIPES = '[Recipe] LOAD_OWN_RECIPES';
+export const LOAD_OWN_RECIPES_SUCCESS = '[Recipe] LOAD_OWN_RECIPES_SUCCESS';
+export const LOAD_OWN_RECIPES_ERROR = '[Recipe] LOAD_OWN_RECIPES_ERROR';
+export const GET_INIT_USER_PROFILE = '[Recipe] GET_INIT_USER_PROFILE';
+export const GET_INIT_USER_PROFILE_SUCCESS = '[Recipe] GET_INIT_USER_PROFILE_SUCCESS';
+export const GET_INIT_USER_PROFILE_ERROR = '[Recipe] GET_INIT_USER_PROFILE_ERROR';
+export const DELETE_RECIPE = '[Recipe] DELETE_RECIPE';
+export const DELETE_RECIPE_SUCCESS = '[Recipe] DELETE_RECIPE_SUCCESS';
+export const DELETE_RECIPE_ERROR = '[Recipe] DELETE_RECIPE_ERROR';
+export const LOAD_NOT_APPROVED_RECIPES = '[Recipe] LOAD_NOT_APPROVED_RECIPES';
+export const LOAD_NOT_APPROVED_RECIPES_SUCCESS = '[Recipe] LOAD_NOT_APPROVED_RECIPES_SUCCESS';
+export const LOAD_NOT_APPROVED_RECIPES_ERROR = '[Recipe] LOAD_NOT_APPROVED_RECIPES_ERROR';
+export const APPROVE_RECIPE = '[Recipe] APPROVE_RECIPE';
+export const APPROVE_RECIPE_SUCCESS = '[Recipe] APPROVE_RECIPE_SUCCESS';
+export const APPROVE_RECIPE_ERROR = '[Recipe] APPROVE_RECIPE_ERROR';
 
 export class CreateRecipeAction implements Action {
     public readonly type = CREATE_RECIPE;
@@ -155,6 +161,55 @@ export class DeleteRecipeErrorAction implements Action {
     }
 };
 
+export class LoadNotApprovedRecipesAction implements Action {
+    public readonly type = LOAD_NOT_APPROVED_RECIPES;
+    public payload: { };
+
+    constructor() { 
+        this.payload = { };
+    }
+};
+
+export class LoadNotApprovedRecipesSuccessAction implements Action {
+    public readonly type = LOAD_NOT_APPROVED_RECIPES_SUCCESS;
+
+    constructor(public payload: RecipeKinveyModel[]) { 
+    }
+};
+
+export class LoadNotApprovedRecipesErrorAction implements Action {
+    public readonly type = LOAD_NOT_APPROVED_RECIPES_ERROR;
+    public payload: {};
+
+    constructor() {
+        this.payload = {};
+    }
+};
+
+export class ApproveRecipeAction implements Action {
+    public readonly type = APPROVE_RECIPE;
+
+    constructor(public payload: RecipeKinveyModel) {}
+};
+
+export class ApproveRecipeSuccessAction implements Action {
+    public readonly type = APPROVE_RECIPE_SUCCESS;
+    public payload: { recipeId: string };
+
+    constructor(recipeId: string) { 
+        this.payload = { recipeId };
+    }
+};
+
+export class ApproveRecipeErrorAction implements Action {
+    public readonly type = APPROVE_RECIPE_ERROR;
+    public payload: {};
+
+    constructor() {
+        this.payload = {};
+    }
+};
+
 export type Actions = CreateRecipeAction
     | CreateRecipeSuccessAction
     | CreateRecipeErrorAction
@@ -171,3 +226,9 @@ export type Actions = CreateRecipeAction
     | DeleteRecipeAction
     | DeleteRecipeSuccessAction
     | DeleteRecipeAction
+    | LoadNotApprovedRecipesAction
+    | LoadNotApprovedRecipesSuccessAction
+    | LoadNotApprovedRecipesSuccessAction
+    | ApproveRecipeAction
+    | ApproveRecipeSuccessAction
+    | ApproveRecipeErrorAction

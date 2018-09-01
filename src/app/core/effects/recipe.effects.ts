@@ -8,6 +8,8 @@ import * as RecipeActions from '../actions/recipe.actions';
 import { RecipeService } from '../services';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { AdminService } from '../services/admin.service';
+import { AdminStoreService } from '../services/admin-store.service';
 
 @Injectable()
 export class RecipeEffects {
@@ -95,9 +97,43 @@ export class RecipeEffects {
         )
     );
 
+    @Effect()
+    public loadNotApprovedRecipes$: Observable<Action> = this.actions$.pipe(
+        ofType(RecipeActions.LOAD_NOT_APPROVED_RECIPES),
+        mergeMap((action: RecipeActions.LoadNotApprovedRecipesAction) =>
+            this.recipeService.getNotApprovedRecipes().pipe(
+                map(data => {
+                    return new RecipeActions.LoadNotApprovedRecipesSuccessAction(data);
+                }),
+                catchError((err) => {
+                    this.toastr.error(err.error.description, 'Error!');
+                    return of(new RecipeActions.LoadNotApprovedRecipesErrorAction());
+                })
+            )
+        )
+    );
+
+    @Effect()
+    public approveRecipe$: Observable<Action> = this.actions$.pipe(
+        ofType(RecipeActions.APPROVE_RECIPE),
+        mergeMap((action: RecipeActions.ApproveRecipeAction) =>
+            this.adminService.approveRecipe(action.payload).pipe(
+                map(data => {
+                    return new RecipeActions.ApproveRecipeSuccessAction(data._id);
+                }),
+                catchError((err) => {
+                    console.log(err)
+                    this.toastr.error(err.error.description, 'Error!');
+                    return of(new RecipeActions.ApproveRecipeErrorAction());
+                })
+            )
+        )
+    );
+
     constructor(
         private actions$: Actions,
         private recipeService: RecipeService,
+        private adminService: AdminService,
         private toastr: ToastrService,
         private router: Router) { }
 }

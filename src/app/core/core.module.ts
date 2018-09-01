@@ -9,6 +9,9 @@ import { reducers } from './state/app.state';
 
 import { RecipeService } from './services';
 import { RecipeStoreService } from './services/recipe-store.service';
+import { UserStoreService } from './services/user-store.service';
+import { AdminService } from './services/admin.service';
+import { AdminStoreService } from './services/admin-store.service';
 
 @NgModule({
   imports: [
@@ -23,7 +26,10 @@ import { RecipeStoreService } from './services/recipe-store.service';
   declarations: [],
   providers: [
     RecipeService,
-    RecipeStoreService
+    RecipeStoreService,
+    UserStoreService,
+    AdminService,
+    AdminStoreService
   ]
 })
 export class CoreModule { }

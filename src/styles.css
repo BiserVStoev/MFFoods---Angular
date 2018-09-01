@@ -207,3 +207,12 @@ body {
   margin-bottom: 10px;
   color: #737373;
 }
+
+.user-manage-icon {
+  padding-top: 10px;
+  margin-left: 6px;
+}
+
+.user-manage {
+  margin-bottom: 10px;
+}

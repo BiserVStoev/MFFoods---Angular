@@ -10,6 +10,12 @@ import { RecipeAllComponent } from './recipe/recipe-all/recipe-all.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { AuthGuard } from './authentication/guards/auth.guard';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
+import { AdminComponent } from './admin/admin/admin.component';
+import { AdminTokenComponent } from './admin/admin-token/admin-token.component';
+import { AdminRecipesComponent } from './admin/admin-recipes/admin-recipes.component';
+import { AdminUsersComponent } from './admin/admin-users/admin-users.component';
+import { AdminHomeComponent } from './admin/admin-home/admin-home.component';
+import { AdminGuard } from './admin/guards/admin.guard';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
@@ -20,7 +26,15 @@ const routes: Routes = [
   { path: 'recipe/all', component: RecipeAllComponent, canActivate: [AuthGuard] },
   { path: 'recipe/:id', component: RecipeDetailsComponent, canActivate: [AuthGuard] },
   { path: 'profile', component: UserProfileComponent, canActivate: [AuthGuard] },
-  { path: '**', component: NotFoundComponent}
+  {
+    path: 'admin', component: AdminComponent, canActivate: [AuthGuard,AdminGuard], children: [
+      { path: '', component: AdminHomeComponent },
+      { path: 'token', component: AdminTokenComponent },
+      { path: 'recipes', component: AdminRecipesComponent }, 
+      { path: 'users', component: AdminUsersComponent }
+    ]
+  },
+  { path: '**', component: NotFoundComponent }
 ]
 
 @NgModule({

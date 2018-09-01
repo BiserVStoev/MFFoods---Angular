@@ -7,5 +7,6 @@
   </div>
   <p class="recipe-short-description">{{recipe.description.length > 72 ? recipe.description.slice(0, 72) + '...' : recipe.description}}</p>
   <p *ngIf="showStatus">{{recipe.isApproved ? 'Approved: YES' : 'Approved: NO'}}</p>
-  <p *ngIf="showStatus && userId && userId === recipe.publisher && !recipe.isApproved"><button (click)="deleteRecipe(recipe._id)" class="btn btn-danger">Delete</button></p>
+  <p *ngIf="(showStatus || isAdminViewing) && userId && userId === recipe.publisher && !recipe.isApproved"><button (click)="deleteRecipe(recipe._id)" class="btn btn-danger">Delete</button></p>
+  <p *ngIf="isAdminViewing"><button (click)="approve(recipe._id)" class="btn btn-success">Approve</button></p>
 </div>

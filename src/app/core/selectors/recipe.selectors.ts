@@ -7,12 +7,32 @@ export const getRecipesState = createFeatureSelector<RecipesState>('recipes');
 
 const getAllRecipesState = createSelector(
     getRecipesState,
-    recipes => recipes.allRecipes
+    recipesState => recipesState.allRecipes
+);
+
+export const getKinveyRecipeById = createSelector(
+    getAllRecipesState,
+    recipes => (recipeId: string) => recipes[recipeId]
 );
 
 export const getAllRecipes = createSelector(
     getAllRecipesState,
     recipes => Object.keys(recipes).map(key => recipes[key]).map(convertKinveyRecipeToRecipe)
+);
+
+export const getAllApprovedRecipes = createSelector(
+    getAllRecipes,
+    recipes => recipes.filter(recipe => recipe.isApproved === true)
+);
+
+export const getAllNotApprovedRecipes = createSelector(
+    getAllRecipes,
+    recipes => recipes.filter(recipe => recipe.isApproved === false)
+);
+
+export const getAreNotApprovedRecipesLoaded = createSelector(
+    getRecipesState,
+    recipes => recipes.notApprovedRecipesAreLoaded
 );
 
 export const allRecipesAreLoaded = createSelector(
@@ -33,7 +53,7 @@ export const getAllRecipiesFilter = createSelector(
 export const getAllRecipesFiltered = createSelector(
     getAllRecipes,
     getAllRecipiesFilter,
-    (recipes, filter) => recipes.filter(recipe => recipe.title.toLocaleLowerCase().includes(filter.toLocaleLowerCase()))
+    (recipes, filter) => recipes.filter(recipe => recipe.isApproved === true && recipe.title.toLocaleLowerCase().includes(filter.toLocaleLowerCase()))
 );
 
 export const getLatestRecipes = createSelector(

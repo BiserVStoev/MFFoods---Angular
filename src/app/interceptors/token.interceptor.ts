@@ -15,12 +15,21 @@ export class TokenInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (this.authService.getAuthtoken() !== null) {
-      request = request.clone({
-        setHeaders: {
-          'Authorization': `Kinvey ${this.authService.getAuthtoken()}`,
-          'Content-Type': 'application/json'
-        }
-      });
+      if (this.authService.isAdmin() && this.authService.getMasterSecret()){
+        request = request.clone({
+          setHeaders: {
+            'Authorization': `Basic ${btoa(`${this.authService.appKey}:${this.authService.getMasterSecret()}`)}`,
+            'Content-Type': 'application/json'
+          }
+        });;
+      } else {
+        request = request.clone({
+          setHeaders: {
+            'Authorization': `Kinvey ${this.authService.getAuthtoken()}`,
+            'Content-Type': 'application/json'
+          }
+        });
+      }
     } else {
       request = request.clone({
         setHeaders: {

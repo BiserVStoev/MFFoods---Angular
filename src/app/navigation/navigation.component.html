@@ -8,13 +8,16 @@
     </button>
   </div>
   <div class="navbar-collapse collapse">
-    <ul class="nav navbar-nav navbar-right">
+    <ul *ngIf="!(isInAdminContext$ | async); else adminNav" class="nav navbar-nav navbar-right">
       <li *ngIf="authService.isAuthenticated()">
         <a class="nav-link">Hello, {{authService.getUsername()}}</a>
       </li>
       <li>
         <a class="nav-link" routerLink="/home">Home</a>
       </li>
+      <li *ngIf="authService.isAdmin()">
+          <a class="nav-link" routerLink="/admin">Admin Panel</a>
+        </li>
       <li *ngIf="authService.isAuthenticated()">
         <a class="nav-link" routerLink="/recipe/create">New Recipe</a>
       </li>
@@ -34,5 +37,28 @@
         <a class="nav-link" (click)="logout()">Logout</a>
       </li>
     </ul>
+
+    <ng-template #adminNav>
+      <ul class="nav navbar-nav navbar-right">
+        <li *ngIf="authService.isAuthenticated()">
+          <a class="nav-link">Hello, Admin</a>
+        </li>
+        <li>
+          <a class="nav-link" routerLink="/home">Back to FoodLovers Menu</a>
+        </li>
+        <li *ngIf="authService.isAuthenticated()">
+          <a class="nav-link" routerLink="/admin">Home</a>
+        </li>
+        <li *ngIf="authService.isAuthenticated()">
+          <a class="nav-link" routerLink="/admin/token">Token</a>
+        </li>
+        <li *ngIf="authService.isAuthenticated()">
+          <a class="nav-link" routerLink="/admin/recipes">Managa Recipes</a>
+        </li>
+        <li *ngIf="authService.isAuthenticated()">
+          <a class="nav-link" routerLink="/admin/users">Manage Users</a>
+        </li>
+      </ul>
+    </ng-template>
   </div>
 </nav>

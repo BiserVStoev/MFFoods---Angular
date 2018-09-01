@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../core/services/auth.service';
+import { Observable } from 'rxjs';
+import { UserStoreService } from '../core/services/user-store.service';
 
 @Component({
   selector: 'app-navigation',
@@ -8,15 +10,18 @@ import { AuthService } from '../core/services/auth.service';
   styleUrls: ['./navigation.component.css']
 })
 export class NavigationComponent implements OnInit {
+  public isInAdminContext$: Observable<boolean>;
   dropdownLi : string = "nav-item dropdown";
   dropdownMenu : string = "dropdown-menu";
 
   constructor(
+    public authService : AuthService,
     private router : Router,
-    private authService : AuthService
+    private userStoreService: UserStoreService
   ) {  }
 
   ngOnInit() {
+    this.isInAdminContext$ = this.userStoreService.getIsInAdminContext();
   }
 
   logout() {

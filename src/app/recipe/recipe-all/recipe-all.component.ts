@@ -10,11 +10,11 @@ import { RecipeStoreService } from '../../core/services/recipe-store.service';
   styleUrls: ['./recipe-all.component.css']
 })
 export class RecipeAllComponent implements OnInit {
-  filterRecipiesForm: FormGroup;
-  private subscriptions: Subscription[] = [];
-  private recipes$: Observable<RecipeModel[]>;
+  public filterRecipiesForm: FormGroup;
   public pageSize = 12;
   public currentPage = 1;
+  public recipes$: Observable<RecipeModel[]>;
+  private subscriptions: Subscription[] = [];
 
   constructor(private recipeStoreService: RecipeStoreService) { }
 

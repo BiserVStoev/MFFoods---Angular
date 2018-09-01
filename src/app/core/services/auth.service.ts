@@ -50,10 +50,19 @@ export class AuthService extends BaseService {
     return this.getAuthtoken() !== null;
   }
 
-  public saveTokenAndUserData(username: string, authToken: string, userId: string, email: string): void {
+  public isAdmin(): boolean {
+    return localStorage.getItem('roles') !== null  && localStorage.getItem('roles').split('##%%##').find(role => role === 'Admin') !== undefined;
+  }
+
+  public getMasterSecret(): string {
+    return localStorage.getItem('masterSecret');
+  }
+
+  public saveTokenAndUserData(username: string, authToken: string, userId: string, email: string, roles: string): void {
     localStorage.setItem('username', username);
     localStorage.setItem('email', email);
     localStorage.setItem('authToken', authToken);
     localStorage.setItem('userId', userId);
+    localStorage.setItem('roles', roles);
   }
 }

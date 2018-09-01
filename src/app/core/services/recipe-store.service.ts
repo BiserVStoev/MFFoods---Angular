@@ -71,4 +71,16 @@ export class RecipeStoreService {
     public deleteRecipe(recipeId: string) {
         this.store.dispatch(new RecipeActions.DeleteRecipeAction(recipeId));
     }
+
+    public getKinveyRecipeById(recipeId: string){
+        return this.store.select(state => recipeSelectors.getKinveyRecipeById(state)(recipeId));
+    }
+
+    public getNotApprovedRecipes(): Observable<RecipeModel[]>{
+        return this.store.select(recipeSelectors.getAllNotApprovedRecipes);
+    }
+
+    public loadNotApprovedRecipes(): void {
+        this.store.dispatch(new RecipeActions.LoadNotApprovedRecipesAction());
+    }
 }

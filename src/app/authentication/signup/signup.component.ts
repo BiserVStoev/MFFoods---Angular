@@ -18,8 +18,8 @@ const nameRegex: RegExp = /^[A-Z]{1}[A-Za-z]+$/;
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit, OnDestroy {
-  registerForm: FormGroup;
-  error: string;
+  public registerForm: FormGroup;
+  public error: string;
   private subscriptions: Subscription[] = [];
   
   constructor(private store: Store<AppState>) { }
@@ -59,7 +59,7 @@ export class SignupComponent implements OnInit, OnDestroy {
   register(): void {
     if (this.registerForm.valid){
       const { email, firstName, lastName, username, password} = this.registerForm.value;
-      const registerData = new SignUpModel(username, email, password, firstName, lastName);
+      const registerData = new SignUpModel(username, email, password, firstName, lastName, 'FoodLover');
       this.store.dispatch(new RegisterUserAction(registerData));
     }
   }

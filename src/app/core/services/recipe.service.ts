@@ -28,12 +28,20 @@ export class RecipeService extends BaseService {
         return this.http.get<RecipeKinveyModel[]>(getRecipeUrl)
     }
 
-    public getOwnRecipes(userId: string) {
+    public getOwnRecipes(userId: string){
         const query = {
             publisher: userId
         }
         const getOwnRecipesUrl = this.constructRequestUrl('appdata','recipes', JSON.stringify(query));
         return this.http.get<RecipeKinveyModel[]>(getOwnRecipesUrl);
+    }
+
+    public getNotApprovedRecipes() {
+        const query = {
+            isApproved: false
+        }
+        const getNotApprovedRecipesUrl = this.constructRequestUrl('appdata','recipes', JSON.stringify(query));
+        return this.http.get<RecipeKinveyModel[]>(getNotApprovedRecipesUrl);
     }
 
     public deleteRecipe(recipeId: string) {

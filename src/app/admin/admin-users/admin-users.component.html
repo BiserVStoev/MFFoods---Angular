@@ -1,0 +1,16 @@
+<div class="container container-fluid">
+    <h2>Ban/Unban users:</h2>
+    <ul class="list-group" *ngIf="users$ | async | paginate: {
+        id: 'allUsers',
+        itemsPerPage: pageSize,
+        currentPage: currentPage
+      }as users ">
+        <div *ngFor="let user of users" class="row user-manage">
+            <li class="list-group-item active col-md-4 offset-md-3">{{user.username}}</li>
+            <i (click)="lockUser(user)" class="fas fa-lock fa-2x user-manage-icon btn" style="background-color: red; color: white;"></i>
+            <i (click)="unlockUser(user)" class="fas fa-lock-open fa-2x user-manage-icon btn btn-success"></i>
+        </div>
+    </ul>
+    <pagination-controls id="allUsers" (pageChange)="pageChanged($event)" maxSize="100" directionLinks="true" autoHide="true"
+        previousLabel="Previous" nextLabel="Next" screenReaderPaginationLabel="Pagination" screenReaderPageaLabel="page" screenReaderCurrentLabel="You're on page"></pagination-controls>
+</div>
