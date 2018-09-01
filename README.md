@@ -1,12 +1,11 @@
-MFFoods
+# MFFoods
 Macro-Friendly Foods
 
-Idea
+# Idea
 An application that stores recipes with their macro nutrients
 
-Design
+# Design
 The application is split into two parts
-
 Main area
 Guests are not allowed into the system
 Direct login && register provided
